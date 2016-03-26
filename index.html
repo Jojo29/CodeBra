@@ -24,9 +24,7 @@
 
 <body style="background: #148A9C">
 
-	<!-- Main Site Content-->
 	<!-- Navigation-->
-
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container-fluid">
 			
@@ -73,28 +71,28 @@
     </header>
 
 
-	<div class="container" style="padding:25px" id="logindiv">
-		<div class="row ">
+	<section class="container" style="padding:25px" id="logindiv">
+		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 		        <form class="form-horizontal" id="loginform">
-			        <h2>Log In</h2>
-			        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+		          <h2>Log In</h2>
+		          <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 
-			        <input type="text" class="form-control" id="login-username" placeholder="Username" />
-			        <input type="password" class="form-control" id="login-password" placeholder="Password" />
-			        <button id="btn-login" class="btn btn-success" onclick="login();">Log In</button>
+		          <input type="text" class="form-control" id="login-username" placeholder="Username" />
+		          <input type="password" class="form-control" id="login-password" placeholder="Password" />
+		          <button type="submit" class="btn btn-success" onclick="login();">Log In</button>
 
-			        <div style="float:right; position: relative;"><a href="#">Forgot password?</a></div>
+		          <div style="float:right; position: relative;"><a href="#">Forgot password?</a></div>
 
-			        <div class="input-group">
-			            <div class="checkbox">
-			              <label>
-			                <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me<!--Styling for the Remember-->
-			              </label>
-			            </div>
-			          </div>
+		          <div class="input-group">
+		            <div class="checkbox">
+		              <label>
+		                <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me<!--Styling for the Remember-->
+		              </label>
+		            </div>
+		          </div>
 
-			          <a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>
+		          <a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>
 		        </form>
 		        <form class="signup-form">
 		          <h2>Sign Up</h2>
@@ -108,7 +106,7 @@
 		</div>
 
 		<script>
-		    function registerNewPerson() {
+		      function registerNewPerson() {
 		        // check if there is a user logged in currently; if so log them out
 		        var currentUser = Parse.User.current();
 		        if (currentUser) {
@@ -145,9 +143,9 @@
 		        Parse.Cloud.run("hello").then(function(val) {
 		          console.log(val);
 		        }); 
-		    }
+		      }
 
-		    function login(){
+		      function login(){
 		        event.preventDefault();
 
 		        var name = $("#login-username").val();
@@ -155,42 +153,21 @@
 
 		        Parse.User.logIn(name, pass, 
 		            {success: function() {
-		                console.log("Log in Success!");
+		                alert("Log in Success!");
 		                window.location.href = "home.html";
 		             }, 
 		             error: function() {
-		                console.log("Log in Error: " + error.message);
+		                console.log("Log in Error: "+error.message);
 		             }
 		        });
 
-		        //Parse.Cloud.run("hello").then(function(val) {
-		          //console.log(val);
-		        //});
-		    }   
-
-		    /*$("#loginform").submit(function(event) {
-			      //event.preventDefault();
-
-			      var name = $("#login-username").val();
-			      var pass = $("#login-password").val();
-
-			      alert("Submit");
-
-			      Parse.User.logIn(name, pass, 
-			      {	success: function() {
-				          console.log("Log in Success!");
-				          alert("Success");
-				          window.location.href = "home.html";
-				    	}, 
-				    	error: function() {
-				          console.log("Log in Error: ");
-				          alert("Error");
-				    	}
-			     	});
-			});*/
+		        Parse.Cloud.run("hello").then(function(val) {
+		          console.log(val);
+		        });
+		      }   
 		</script>
 
-	</div>
+	</section>
 
 	<script type="text/javascript">
 		//Parse.initialize("APPLICATION_ID", "JAVASCRIPT_KEY");
