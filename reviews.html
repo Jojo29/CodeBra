@@ -70,6 +70,13 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 
+	<!-- Parse files -->
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+	<script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
+	<script type="text/javascript" src="js/initParse.js"></script>
+
 	</head>
 	<body>
 		
@@ -92,21 +99,21 @@
 		</p>
 	</div><!--ends side profile!-->
 	
-<div id="header-wrap"><!--Starts the navbar-->
-<nav class="fh5co-fixed-top">
-	<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <i class="icon-menu"></i></a>
-					<a class="navbar-brand" href="mainfeed.html">News Feed</a>		
-					<a class="navbar-brand" href="hangT.html">Hang</a>	
-					<a class="navbar-brand active" href="#">Create a review</a>	
-				</div>
+	<div id="header-wrap"><!--Starts the navbar-->
+	<nav class="fh5co-fixed-top">
+		<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<a href="#" class="fh5co-menu-btn js-fh5co-menu-btn">Menu <i class="icon-menu"></i></a>
+						<a class="navbar-brand" href="mainfeed.html">News Feed</a>		
+						<a class="navbar-brand" href="hangT.html">Hang</a>	
+						<a class="navbar-brand active" href="#">Create a review</a>	
+					</div>
 
+				</div>
 			</div>
-		</div>
-</nav>
-</div><!--ends navbar-->
+	</nav>
+	</div><!--ends navbar-->
 	<!-- END .header -->
 
 	<div class="container"><!--Container for dropdown menu-->
@@ -204,7 +211,7 @@
             <div class="input-group">
                 <span class="input-group-btn">
                     <span class="btn btn-primary btn-file">
-                        Browse&hellip; <input type="file" multiple>
+                        Browse&hellip; <input id="imgUpload" type="file" multiple>
                     </span>
                 </span>
             </div>
@@ -212,7 +219,7 @@
             </span>
         </di><!--ends the upload handler-->
 		
-		<button type="button" class="btn btn-primary btn-block" onclick="submitAlert()" >Submit</button>
+		<button type="button" class="btn btn-primary btn-block" onclick="createReview()" >Submit</button>
 		
 	</div>
 			
@@ -288,7 +295,35 @@
 		}
 		
 	</script>
-<!--end of script-->
+	<!--end of script-->
+
+	<script type="text/javascript">
+		function createReview() {
+	      		var place = "GPn9XTs2Dy";
+	      		var comments = $("#inputlg").val();
+	      		var rank = "";
+	      		var hasRamps = true;
+	      		var hasWideDoors = true;
+	      		var isNavigationEasy = true;
+	      		var picture = "";
+			    var params = { 
+			    	place: place, 
+			    	comments: comments, 
+			    	rank: rank, 
+			    	hasRamps: hasRamps, 
+			        hasWideDoors: hasWideDoors, 
+			        isNavigationEasy: isNavigationEasy, 
+			        picture: picture
+			    };
+			    
+			    Parse.Cloud.run("createReview", params).then(function(result) {
+			   		// make sure the set the enail sent flag on the object
+			        console.log("result :" + JSON.stringify(result))
+			    }, function(error) {
+			        alert("ERROR: ", error.message);
+			    });
+		}
+	</script>
 
 
 	<!-- jQuery -->
