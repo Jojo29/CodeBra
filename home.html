@@ -13,6 +13,13 @@
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 	<meta name="author" content="FREEHTML5.CO" />
 
+	<meta charset="UTF-8"/>
+    <link rel="stylesheet"  href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/star-rating.js" type="text/javascript"></script>
+
   <!-- 
 	//////////////////////////////////////////////////////
 
@@ -122,6 +129,10 @@
         	<div class="item">
         		<div class="animate-box">
 	        		<a href="images/img_1.jpg" class="image-popup fh5co-board-img" title="Boston Park Plaza"><img src="images/boston park plaza.jpg" alt="Free HTML5 Bootstrap template" style="width:500px;height:300px;"></a>
+	        		<form>
+	        		<input id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
+    				<hr>
+    				<form>
         		</div>
         		<div class="fh5co-desc">Where the outlets close to the bed ? YES</div>
         		<div class="fh5co-desc">Was the bathtub a walk-in ? NO</div>
@@ -130,9 +141,11 @@
         	</div>
         	<div class="item">
         		<div class="animate-box">
-	        		<a href="images/img_2.jpg" class="image-popup fh5co-board-img"><img src="images/church.jpg" alt="Free HTML5 Bootstrap template" style="width:500px;height:300px;"></a>
+	        		<a href="images/img_2.jpg" class="image-popup fh5co-board-img"><img src="images/diningroom.jpg" alt="Free HTML5 Bootstrap template" style="width:500px;height:300px;"></a>
 	        		<div class="fh5co-desc">Where you able to maneuver gracefully? YES</div>
         			<div class="fh5co-desc">Was the bathroom easy to use? YES</div>
+        			<div class="fh5co-desc">Was there a ramp? YES</div>
+        			<div class="fh5co-desc">Was there ample handicap parking spots? NO</div>
         		</div>
         	</div>
         	<div class="item">
@@ -186,6 +199,59 @@
 	<script src="js/salvattore.min.js"></script>
 	<!-- Main JS -->
 	<script src="js/main.js"></script>
+
+	<script>
+    jQuery(document).ready(function () {
+        $("#input-21f").rating({
+            starCaptions: function(val) {
+                if (val < 3) {
+                    return val;
+                } else {
+                    return 'high';
+                }
+            },
+            starCaptionClasses: function(val) {
+                if (val < 3) {
+                    return 'label label-danger';
+                } else {
+                    return 'label label-success';
+                }
+            },
+            hoverOnClear: false
+        });
+        
+        $('#rating-input').rating({
+              min: 0,
+              max: 5,
+              step: 1,
+              size: 'lg',
+              showClear: false
+           });
+           
+        $('#btn-rating-input').on('click', function() {
+            $('#rating-input').rating('refresh', {
+                showClear:true, 
+                disabled: !$('#rating-input').attr('disabled')
+            });
+        });
+        
+        
+        $('.btn-danger').on('click', function() {
+            $("#kartik").rating('destroy');
+        });
+        
+        $('.btn-success').on('click', function() {
+            $("#kartik").rating('create');
+        });
+        
+        $('#rating-input').on('rating.change', function() {
+            alert($('#rating-input').val());
+        });
+        
+        
+        $('.rb-rating').rating({'showCaption':true, 'stars':'3', 'min':'0', 'max':'3', 'step':'1', 'size':'xs', 'starCaptions': {0:'status:nix', 1:'status:wackelt', 2:'status:geht', 3:'status:laeuft'}});
+    });
+</script>
 
 </body>
 
