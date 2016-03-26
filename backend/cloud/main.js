@@ -24,6 +24,7 @@ Parse.Cloud.define("getPlaces", function(request, response) {
 });
 
 //Creates review
+//input: place, (review) comments, 
 Parse.Cloud.define("createReview", function(request, response) {
 
 	//create review object and populate it with variables
