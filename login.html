@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>No Limit</title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+		<link rel="stylesheet" href="css/freelancer.css">
+
+		<!-- Parse files -->
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/styles.css">
+		<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
+		<script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
+		
+	</head>
+
+<body style="background: #148A9C">
+
+	<!-- Main Site Content-->
+	<!-- Navigation-->
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			
+			<div class="navbar-header page-scroll">
+				<button type="button" class="navbar-toggle" dat-toggle="collapse"
+				data-target="#mainNavBar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+
+				<!--Logo-->
+				<a href="#" class="navbar-brand">No Limit</a>
+			</div>
+
+				<!-- Menu Items-->
+			<div class="collapse navbar-collapse" id="mainNavBar">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="active">
+							<a href="#page-top">Review</a>
+						</li>
+						<li>
+							<a href="#">View Profile</a>
+						</li>
+					</ul>
+			</div>
+		</div>
+	</nav>
+
+
+    <!-- Header -->
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- <img class="img-responsive img-circle" src="img/me.jpg" alt=""> -->
+                    <div class="intro-text">
+                        <span class="name">Welcome to No Limit!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+	<section class="container" id="logindiv">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+		        <form class="form-horizontal" id="loginform">
+		          <h2>Log In</h2>
+		          <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+		          <input type="text" class="form-control" id="login-username" placeholder="Username" />
+		          <input type="password" class="form-control" id="login-password" placeholder="Password" />
+		          <button type="submit" class="btn btn-success" onclick="login();">Log In</button>
+
+		          <div style="float:right; position: relative;"><a href="#">Forgot password?</a></div>
+
+		          <div class="input-group">
+		            <div class="checkbox">
+		              <label>
+		                <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me<!--Styling for the Remember-->
+		              </label>
+		            </div>
+		          </div>
+
+		          <a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>
+		        </form>
+		        <form class="signup-form">
+		          <h2>Sign Up</h2>
+		          <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+		          <input type="email" class="form-control" id="signup-email" placeholder="Enter Email" />
+		          <input type="text" class="form-control" id="signup-username" placeholder="Username" />
+		          <input type="password" class="form-control" id="signup-password" placeholder="Create a Password" />
+		          <button class="btn btn-success" onclick="registerNewPerson();">Sign Up</button>
+		        </form>
+		    </div>
+		</div>
+
+		<script>
+		      function registerNewPerson() {
+		        // check if there is a user logged in currently; if so log them out
+		        var currentUser = Parse.User.current();
+		        if (currentUser) {
+		            Parse.User.logOut();
+		        } 
+		        
+		        event.preventDefault();
+		        
+		        // Create new user object
+		        var user = new Parse.User();
+
+		        var newEmail = $('#signup-email').val();
+		        var newName = $('#signup-username').val();
+		        var newPass = $('#signup-password').val();
+		        console.log(newName);
+
+		        // var user = new Parse.User();
+		        user.set("username", newName);
+		        user.set("password", newPass);
+		        user.set("email", newEmail);
+		        user.set("points", 0);
+		        user.signUp(null, {
+		          success: function(user) {
+		            // Hooray! Let them use the app now.
+		            alert("Thank you for registering! Please use your new credentials to log in.");
+		          },
+		          error: function(user, error) {
+		            // Show the error message somewhere and let the user try again.
+		            alert("Error: " + error.code + " " + error.message);
+
+		          }
+		        });
+
+		        Parse.Cloud.run("hello").then(function(val) {
+		          console.log(val);
+		        }); 
+		      }
+
+		      function login(){
+		        event.preventDefault();
+
+		        var name = $("#login-username").val();
+		        var pass = $("#login-password").val();
+
+		        Parse.User.logIn(name, pass, 
+		            {success: function() {
+		                console.log("Log in Success!");
+		             }, 
+		             error: function() {
+		                console.log("Log in Error: "+error.message);
+		             }
+		        });
+
+		        Parse.Cloud.run("hello").then(function(val) {
+		          console.log(val);
+		        });
+		      }   
+		</script>
+
+	</section>
+
+	<script type="text/javascript">
+		//Parse.initialize("APPLICATION_ID", "JAVASCRIPT_KEY");
+	    Parse.initialize("gV5Y1LeLQZkp8ZlxZbPtO9bzuiSV8rDBAkxdV37a", "5z7IsSnkSjTp0k5kP8rJvbNQZTJapIyctjD62cZb");
+
+	    //Parse.serverURL = 'http://YOUR_PARSE_SERVER:1337/parse'
+	</script>
+</body>
+</html>
