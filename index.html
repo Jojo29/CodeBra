@@ -19,69 +19,66 @@
 		<link rel="stylesheet" href="css/styles.css">
 		<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
 		<script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
-		
+	
+		<script type="text/javascript" src="js/initParse.js"></script>
+		<link rel="stylesheet" href="css/general.css">
 	</head>
 
-<body style="background: #148A9C">
+		<style>
+			html {
+				background: url(http://cdn.paper4pc.com/images/blurred-wallpaper-10.jpg) no-repeat center center fixed;
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}
+			body {
+				padding-top: 20px;
+				font-size: 16px;
+				font-family: "Open Sans",serif;
+				background: transparent;
+			}
 
-	<!-- Navigation-->
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container-fluid">
-			
-			<div class="navbar-header page-scroll">
-				<button type="button" class="navbar-toggle" dat-toggle="collapse"
-				data-target="#mainNavBar">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
+			h1 {
+				font-family: "Abel", Arial, sans-serif;
+				font-weight: 400;
+				font-size: 40px;
+			}
 
-				<!--Logo-->
-				<a href="#" class="navbar-brand">No Limit</a>
-			</div>
+			/* Override B3 .panel adding a subtly transparent background */
+			.panel {
+				background-color: rgba(255, 255, 255, 0.9);
+			}
 
-				<!-- Menu Items-->
-			<div class="collapse navbar-collapse" id="mainNavBar">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="active">
-							<a href="home.html">Home</a>
-						</li>
-						<li>
-							<a href="#">View Profile</a>
-						</li>
-					</ul>
-			</div>
-		</div>
-	</nav>
+			.margin-base-vertical {
+				margin: 40px 0;
+			}
+		</style>
 
+<body>
 
     <!-- Header -->
     <header>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <!-- <img class="img-responsive img-circle" src="img/me.jpg" alt=""> -->
-                    <div class="intro-text">
-                        <span class="name">Welcome to No Limit!</span>
-                    </div>
-                </div>
+        <div class="container-fluid" style="padding:25px">
+            <div class="intro-text panel-heading">
+                <h1 class="name">Welcome to No Limit!</h1>
             </div>
         </div>
     </header>
 
 
-	<div class="container" style="padding:25px" id="logindiv">
-		<div class="row">
+	<div class="container" id="logindiv">
+		<div id="loginbox" class="row panel-body">
 			<div class="col-md-6 col-md-offset-3">
-		        <form class="form-horizontal" id="loginform">
-		          <h2>Log In</h2>
-		          <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+		        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
+
+		        <form class="form-horizontal" id="loginform" role="form">
 
 		          <input type="text" class="form-control" id="login-username" placeholder="Username" />
+		          <div style="padding: 5px;"></div>
 		          <input type="password" class="form-control" id="login-password" placeholder="Password" />
-		          <button type="submit" class="btn btn-success" onclick="login();">Log In</button>
-
+		          <div style="padding: 5px;"></div>
+		          <input type="mail" class="form-control" id="signup-email" placeholder="Enter Email" /><div style="padding: 5px;"></div>
 		          <div style="float:right; position: relative;"><a href="#">Forgot password?</a></div>
 
 		          <div class="input-group">
@@ -91,19 +88,53 @@
 		              </label>
 		            </div>
 		          </div>
-
+		          <button id="loginbtn" type="submit" class="btn btn-success" onclick="login();">Log In</button>
+		          <button id="signinbtn" class="btn btn-success"  data-toggle="modal" onclick="registerNewPerson();">Sign Up</button>
 		          <a id="btn-fblogin" href="#" class="btn btn-primary">Login with Facebook</a>
 		        </form>
-		        <form class="signup-form">
-		          <h2>Sign Up</h2>
+		        <!-- <form class="signup-form"  role="form">
+		          <h3>Sign Up</h3>
 		          <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-		          <input type="email" class="form-control" id="signup-email" placeholder="Enter Email" />
+		          <input type="mail" class="form-control" id="signup-email" placeholder="Enter Email" />
 		          <input type="text" class="form-control" id="signup-username" placeholder="Username" />
 		          <input type="password" class="form-control" id="signup-password" placeholder="Create a Password" />
-		          <button class="btn btn-success" onclick="registerNewPerson();">Sign Up</button>
-		        </form>
+		          <button id="signup-sign" class="btn btn-success" onclick="registerNewPerson();">Sign Up</button>
+		        </form> -->
 		    </div>
 		</div>
+
+
+	  <!-- Modal -->
+	  <div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+		    
+			<!-- Modal content-->
+		    <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal">&times;</button>
+		          <h4 class="modal-title">Put in your information</h4>
+		        </div>
+		        <div class="modal-body">
+		          <div class="form-group">
+				  <label for="usr">Name:</label>
+				  <input type="text" class="form-control" id="signup-username">
+				</div>
+				<div class="form-group">
+				  <label for="email">Email:</label>
+				  <input type="mail" class="form-control" id="signup-email">
+				</div> 
+				<div class="form-group">
+				  <label for="pwd">Password:</label>
+				</div>
+		        <div class="modal-footer">
+		          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		          <button type="button" class="btn btn-default" data-dismiss= "modal" onclick="registerNewPerson();">Register</button>
+		        </div>
+		      </div>
+	      
+	    	</div>
+	  	</div>
+
 
 		<script>
 		      function registerNewPerson() {
@@ -132,6 +163,7 @@
 		          success: function(user) {
 		            // Hooray! Let them use the app now.
 		            alert("Thank you for registering! Please use your new credentials to log in.");
+		            window.location.href = "home.html";
 		          },
 		          error: function(user, error) {
 		            // Show the error message somewhere and let the user try again.
@@ -158,6 +190,7 @@
 		             }, 
 		             error: function() {
 		                console.log("Log in Error: "+error.message);
+		                alert("Error: " + error.code + " " + error.message);
 		             }
 		        });
 
@@ -168,12 +201,5 @@
 		</script>
 
 	</div>
-
-	<script type="text/javascript">
-		//Parse.initialize("APPLICATION_ID", "JAVASCRIPT_KEY");
-	    Parse.initialize("gV5Y1LeLQZkp8ZlxZbPtO9bzuiSV8rDBAkxdV37a", "5z7IsSnkSjTp0k5kP8rJvbNQZTJapIyctjD62cZb");
-
-	    //Parse.serverURL = 'http://YOUR_PARSE_SERVER:1337/parse'
-	</script>
 </body>
 </html>
