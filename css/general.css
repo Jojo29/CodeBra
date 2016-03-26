@@ -1,0 +1,10 @@
+#loginbtn {
+	float: left;
+}
+#signinbtn {
+	float: left;
+	margin-left: 8px;
+}
+#btn-fblogin {
+	float: right;
+}
